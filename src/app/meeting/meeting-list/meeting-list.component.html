@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <div class='row'>
+      <div class='col-md-2'>
+        <button class="btn btn-outline-primary btn-sm"
+                (click)='createMeeting()'>
+          Create Meeting
+        </button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Subject</th>
+            <th>Agenda</th>
+            <th>Addresses</th>
+            <th>DateTime</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let meeting of meetings">
+            <td>{{meeting.id}}</td>
+            <td>{{meeting.meetingSubject}}</td>
+            <td>{{meeting.agenda}}</td>
+            <td>{{meeting.attendees}}</td>
+            <td>{{meeting.meetingDataTime}}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm"
+                      (click)='updateMeeting(meeting)'>
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
