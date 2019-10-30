@@ -12,7 +12,8 @@ export class InMemMeetingService implements InMemoryDbService {
         attendees: 'Brad Guzan, JohnSmith B, Ronaldo record, Sean Johnson, DeAndre Yedlin, Matt Miazga',
         // tslint:disable-next-line:max-line-length
         agenda: '1. The declaration of dividend among shareholders  2.Consideration of annual accounts Discussion of the director’s report and the auditor report  3. ppointment and fixing of the remuneration of the statutory auditors  4. Appointing replacement directors in place of existing directors retiring',
-        meetingDataTime: '2019/10/10 10:10:10 '
+        meetingDataTime: '2019/10/10 10:10:10 ',
+        selectedAttendees: []
       },
       {
         id: 2,
@@ -20,7 +21,8 @@ export class InMemMeetingService implements InMemoryDbService {
         attendees: 'Brad Guzan, JohnSmith B, Ronaldo record, Sean Johnson, DeAndre Yedlin, Matt Miazga',
         // tslint:disable-next-line:max-line-length
         agenda: '1. The declaration of dividend among shareholders  2.Consideration of annual accounts Discussion of the director’s report and the auditor report  3. ppointment and fixing of the remuneration of the statutory auditors  4. Appointing replacement directors in place of existing directors retiring',
-        meetingDataTime: '2019/10/10 10:10:10 '
+        meetingDataTime: '2019/10/10 10:10:10 ',
+        selectedAttendees: []
       },
       {
         id: 3,
@@ -28,7 +30,8 @@ export class InMemMeetingService implements InMemoryDbService {
         attendees: 'Brad Guzan, JohnSmith B, Ronaldo record, Sean Johnson, DeAndre Yedlin, Matt Miazga',
         // tslint:disable-next-line:max-line-length
         agenda: '1. The declaration of dividend among shareholders  2.Consideration of annual accounts Discussion of the director’s report and the auditor report  3. ppointment and fixing of the remuneration of the statutory auditors  4. Appointing replacement directors in place of existing directors retiring',
-        meetingDataTime: '2019/10/10 10:10:10 '
+        meetingDataTime: '2019/10/10 10:10:10 ',
+        selectedAttendees: []
       }
     ];
 

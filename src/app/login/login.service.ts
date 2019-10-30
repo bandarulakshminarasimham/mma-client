@@ -7,9 +7,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
+  public isAuthenticated = false;
   constructor() { }
-  login(user: any): string {
+  login(user: any): boolean {
     // Assumed login success then return token and displayName in response
-    return user.userName;
+
+    // Mock Authentication
+    this.isAuthenticated = user.username === 'admin' && user.password === 'admin';
+    return this.isAuthenticated;
   }
 }

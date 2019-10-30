@@ -23,12 +23,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let meeting of meetings">
-            <td>{{meeting.id}}</td>
-            <td>{{meeting.meetingSubject}}</td>
-            <td>{{meeting.agenda}}</td>
-            <td>{{meeting.attendees}}</td>
-            <td>{{meeting.meetingDataTime}}</td>
+          <tr *ngFor="let meeting of meetingvm">
+            <td>{{meeting.MeetingId}}</td>
+            <td>{{meeting.Subject}}</td>
+            <td>{{meeting.Agenda}}</td>
+            <td>{{meeting.AttendeeNames}}</td>
+            <td>{{meeting.MDateTime}}</td>
             <td>
               <button class="btn btn-outline-primary btn-sm"
                       (click)='updateMeeting(meeting)'>

@@ -5,7 +5,7 @@
       <div class="card-group">
         <div class="card p-4">
           <div class="card-body">
-            <form>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
               <h1 style="text-align:center">Login</h1>
 
               <div class="input-group mb-3">
@@ -13,9 +13,10 @@
                   <span class="input-group-text"><i class="icon-user"></i></span>
                 </div>
                 <input type="text"
-                       name="userName"
-                       class="form-control sty1"
-                       placeholder="Username">
+                       name="username"
+                       class="form-control"
+                       placeholder="Username"
+                       formControlName="username">
               </div>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
@@ -24,12 +25,12 @@
                 <input type="password"
                        name="password"
                        class="form-control"
-                       placeholder="Password">
+                       placeholder="Password"
+                       formControlName="password">
               </div>
               <div class="row">
                 <div class="col-6">
-                  <button class="btn btn-primary px-4"
-                          (click)='login()'>Login</button>
+                  <button class="btn btn-primary px-4" >Login</button>
                 </div>
               </div>
             </form>

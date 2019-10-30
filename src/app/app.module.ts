@@ -18,11 +18,11 @@ import { DlDateTimeDateModule } from 'angular-bootstrap-datetimepicker';
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemMeetingService),
+    // HttpClientInMemoryWebApiModule.forRoot(InMemMeetingService),
     MeetingModule,
     AppRoutingModule,
     LoginModule,
-    DlDateTimeDateModule,
+    DlDateTimeDateModule
   ],
   bootstrap: [AppComponent],
   providers: [

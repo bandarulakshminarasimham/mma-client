@@ -4,4 +4,5 @@ export interface Meeting {
   attendees: string;
   agenda: string;
   meetingDataTime: string;
+  selectedAttendees: any;
 }

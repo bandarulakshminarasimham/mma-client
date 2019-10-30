@@ -9,6 +9,7 @@ import { MeetingService } from '../meeting.service';
 import { Meeting } from 'src/model/Meeting';
 import { GenericValidator } from 'src/app/shared/generic-validator';
 import { Attendees } from 'src/model/Attendees';
+import { MeetingVM } from 'src/model/MeetingVM';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class MeetingEditComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedAttendees: any;
 
   meeting: Meeting;
+  meetingvm: MeetingVM;
   private sub: Subscription;
   displayMessage: { [key: string]: string } = {};
   private validationMessages: { [key: string]: { [key: string]: string } };
@@ -71,7 +73,7 @@ export class MeetingEditComponent implements OnInit, OnDestroy, AfterViewInit {
       Validators.minLength(50)]],
       attendees: [''],
       agenda: ['', Validators.required],
-      meetingDataTime: ['']
+      meetingDateTime: ['']
     });
 
     // Read the product Id from the route parameter
@@ -106,7 +108,7 @@ export class MeetingEditComponent implements OnInit, OnDestroy, AfterViewInit {
   getMeetingsById(id: string): void {
     this.meetingService.getMeetingsById(id)
       .subscribe({
-        next: (meeting: Meeting) => this.displayMeeting(meeting),
+        next: (meeting: MeetingVM) => this.displayMeeting(meeting),
         error: err => this.errorMessage = err
       });
   }
@@ -122,23 +124,23 @@ export class MeetingEditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  displayMeeting(meeting: Meeting): void {
+  displayMeeting(meeting: MeetingVM): void {
     if (this.meetingForm) {
       this.meetingForm.reset();
     }
-    this.meeting = meeting;
 
-    if (this.meeting.id === 0) {
+    this.meetingvm = meeting;
+    if (this.meetingvm.MeetingId === 0) {
       this.pageTitle = 'Add Meeting';
     } else {
-      this.pageTitle = `Edit Meeting: ${this.meeting.meetingSubject}`;
+      this.pageTitle = `Edit Meeting: ${this.meetingvm.Subject}`;
     }
     // Update the data on the form
     this.meetingForm.patchValue({
-      meetingSubject: this.meeting.meetingSubject,
-      attendees: this.meeting.attendees,
-      agenda: this.meeting.agenda,
-      meetingDataTime: this.meeting.meetingDataTime
+      meetingSubject: this.meetingvm.Subject,
+      attendees: this.meetingvm.AttendeeNames,
+      agenda: this.meetingvm.Agenda,
+      meetingDataTime: this.meetingvm.MDateTime
     });
   }
 
@@ -179,6 +181,4 @@ export class MeetingEditComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingForm.reset();
     this.router.navigate(['/meetings']);
   }
-
-
 }

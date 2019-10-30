@@ -1,3 +1,4 @@
+import { MeetingVM } from 'src/model/MeetingVM';
 import { Component, OnInit } from '@angular/core';
 import { MeetingService } from '../meeting.service';
 import { Meeting } from 'src/model/Meeting';
@@ -11,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MeetingListComponent implements OnInit {
   meetings: Meeting[];
+  meetingvm: MeetingVM[];
   pageTitle = 'Meetings List';
   errorMessage = '';
 
@@ -25,15 +27,19 @@ export class MeetingListComponent implements OnInit {
 
   getMeetings(): void {
     this.meetingService.getMinMeetings().subscribe(meetings => {
-      this.meetings = meetings;
+      this.meetingvm = meetings;
     },
-      error => this.errorMessage = error);
+      error => {
+        debugger
+        this.errorMessage = error;
+        console.log(this.errorMessage);
+      });
   }
   createMeeting(): void {
     this.router.navigate(['/meetings/create']);
   }
-  updateMeeting(meeting: Meeting): void {
-    this.router.navigate(['/meetings/edit', meeting.id]);
+  updateMeeting(meeting: MeetingVM): void {
+    this.router.navigate(['/meetings/edit', meeting.MeetingId]);
   }
 
   viewMeeting(meeting: Meeting): void {

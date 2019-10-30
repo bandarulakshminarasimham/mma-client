@@ -10,18 +10,22 @@ import { Meeting } from 'src/model/Meeting';
 import { GenericValidator } from 'src/app/shared/generic-validator';
 import { Attendees } from 'src/model/Attendees';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'mma-meeting-create',
   templateUrl: './meeting-create.component.html',
   styleUrls: ['./meeting-create.component.css']
 })
+
 export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private meetingService: MeetingService) {
+    private meetingService: MeetingService,
+    private modalService: NgbModal) {
 
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
@@ -46,6 +50,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
   pageTitle = 'Meeting Create';
   errorMessage = '';
   meetingForm: FormGroup;
+  public addAttendeeForm: FormGroup;
   mdatetime: any;
   attendees: Attendees[];
   selectedAttendees: any;
@@ -67,10 +72,17 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
       Validators.minLength(50)]],
       agenda: ['', Validators.required],
       attendees: [''],
-      meetingDataTime: ['', Validators.required],
+      meetingDateTime: ['', Validators.required],
       selectedAttendees: ['']
     });
     this.getAttendees();
+    this.loadDefaultAddAttendeeForm();
+  }
+
+  loadDefaultAddAttendeeForm(){
+    this.addAttendeeForm = this.fb.group({
+      attendee: ['', Validators.required]
+    });
   }
 
   ngOnDestroy(): void {
@@ -104,6 +116,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   saveMeeting(): void {
+    debugger
     if (this.meetingForm.valid) {
       if (this.meetingForm.dirty) {
         let p = { ...this.meeting, ...this.meetingForm.value };
@@ -125,5 +138,25 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
     // Reset the form to clear the flags
     this.meetingForm.reset();
     this.router.navigate(['/meetings']);
+  }
+
+  openAddAttendes(modal) {
+    this.modalService.open(modal, { centered: true });
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+
+  addAttendee(){
+    let attendee = this.addAttendeeForm.value.attendee;
+    if(attendee){
+      this.meetingService.addAttendee(attendee)
+          .subscribe({
+            next: () => this.getAttendees(),
+            error: err => this.errorMessage = err
+          });
+          this.closeModal();
+    }
   }
 }
