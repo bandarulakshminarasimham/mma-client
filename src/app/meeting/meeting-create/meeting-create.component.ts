@@ -22,10 +22,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private meetingService: MeetingService,
-    private modalService: NgbModal) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private meetingService: MeetingService,
+              private modalService: NgbModal) {
 
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
@@ -79,7 +79,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
     this.loadDefaultAddAttendeeForm();
   }
 
-  loadDefaultAddAttendeeForm(){
+  loadDefaultAddAttendeeForm() {
     this.addAttendeeForm = this.fb.group({
       attendee: ['', Validators.required]
     });
@@ -110,16 +110,16 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
       error => this.errorMessage = error);
   }
   attendeesSelectionChanged(event: any): void {
-    debugger
+    debugger;
     console.log(this.selectedAttendees);
     // const value = this.selectedAttendees.map(t => t.name).join(',');
   }
 
   saveMeeting(): void {
-    debugger
+    debugger;
     if (this.meetingForm.valid) {
       if (this.meetingForm.dirty) {
-        let p = { ...this.meeting, ...this.meetingForm.value };
+        const p = { ...this.meeting, ...this.meetingForm.value };
         this.meetingService.createMeeting(p)
           .subscribe({
             next: () => this.onSaveComplete(),
@@ -148,15 +148,15 @@ export class MeetingCreateComponent implements OnInit, OnDestroy, AfterViewInit 
     this.modalService.dismissAll();
   }
 
-  addAttendee(){
-    let attendee = this.addAttendeeForm.value.attendee;
-    if(attendee){
+  addAttendee() {
+    const attendee = this.addAttendeeForm.value.attendee;
+    if (attendee) {
       this.meetingService.addAttendee(attendee)
           .subscribe({
             next: () => this.getAttendees(),
             error: err => this.errorMessage = err
           });
-          this.closeModal();
+      this.closeModal();
     }
   }
 }
