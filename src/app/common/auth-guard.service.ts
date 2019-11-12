@@ -20,13 +20,10 @@ export class AuthGuardService implements CanActivate {
     // tslint:disable-next-line:no-bitwise
     const logggedinUser = this._loginService.loggedinUserValue;
     console.log('Guard Called');
-    // if (this._loginService.isAuthenticated && logggedinUser) {
-    //     return true;
-    // }
+
     if (logggedinUser) {
       return true;
     } else {
-      // const _logggedinUser = JSON.parse(localStorage.getItem('currentUser'));
       const _logggedinUser = this.cookieService.get('currentUser');
       if (_logggedinUser) {
         return true;

@@ -21,26 +21,4 @@ export class BasicAuthInterceptor implements HttpInterceptor  {
 
      return next.handle(request);
   }
-
-  // constructor(private http: Http) { }
-
-  // createAuthorizationHeader(headers: Headers) {
-  //   headers.append('Authorization', 'Basic ' +
-  //     btoa('username:password'));
-  // }
-  // get(url) {
-  //   const headers = new Headers();
-  //   this.createAuthorizationHeader(headers);
-  //   return this.http.get(url, {
-  //     headers
-  //   });
-  // }
-
-  // post(url, data) {
-  //   const headers = new Headers();
-  //   this.createAuthorizationHeader(headers);
-  //   return this.http.post(url, data, {
-  //     headers
-  //   });
-  // }
 }
