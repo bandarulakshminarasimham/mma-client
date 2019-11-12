@@ -1,0 +1,10 @@
+<nav class='navbar navbar-expand navbar-light bg-light'>
+  <a class='navbar-brand' [attr.title]="pageTitle">{{title}}</a>
+  <ul class='navbar-nav'>
+    <li class='nav-item'><a class='nav-link' routerLinkActive='active' [routerLink]="['/meeting']">Meeting</a>
+    <li class='nav-item'><a class='nav-link' routerLinkActive='active' [routerLink]="['/attendee/dashboard']">Attendee
+        Dashboard</a>
+    <li class='nav-item'><a class='nav-link' routerLinkActive='active' [routerLink]="['/attendee/home']">Attendee</a>
+    </li>
+  </ul>
+</nav>

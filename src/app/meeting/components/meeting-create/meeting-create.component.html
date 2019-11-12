@@ -1,0 +1,95 @@
+<div class='card'>
+  <div class='card-header'>
+    {{pageTitle}}
+  </div>
+  <div class='card-body'>
+    <form novalidate (ngSubmit)="saveMeeting()" [formGroup]="meetingForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" ng for="Subject">Meeting Subject</label>
+        <div class="col-md-8">
+          <input class="form-control" id="Subject" type="text" placeholder="Meeting Subject (required)"
+            formControlName="Subject" [ngClass]="{'is-invalid': displayMessage.Subject}" />
+          <span class="invalid-feedback">
+            {{displayMessage.Subject}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="Agenda">Meeting Agenda</label>
+        <div class="col-md-8">
+          <textarea class="form-control" id="Agenda" type="text" placeholder="Meeting Agenda (required)"
+            formControlName="Agenda" [ngClass]="{'is-invalid': displayMessage.Agenda}">
+          </textarea>
+          <span class="invalid-feedback">
+            {{displayMessage.Agenda}}
+          </span>
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="selectedAttendees">Attendees</label>
+        <div class="col-md-8 row padd-right-0">
+          <ngx-select-dropdown
+          (change)="attendeesSelectionChanged($event)"
+          id="selectedAttendees"
+          [multiple]="true"
+            [(ngModel)]="selectedAttendees"
+            [config]="attendeesConfig"
+            formControlName="SelectedAttendees"
+            [options]="attendees" class="col-md-11">
+          </ngx-select-dropdown>
+          <button type="button" class="btn btn-primary btn-circle btn-sm col-md-1"
+            (click)="openAddAttendes(addAttendees)">Add</button>
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="MDateTime">Meeting DateTime</label>
+        <div class="col-md-8">
+          <dl-date-time-picker startView="day" maxView="year" minView="minute" minuteStep="5"
+            formControlName="MDateTime" [ngClass]="{'is-invalid': displayMessage.MDateTime}"
+            [(ngModel)]="MDateTime">
+          </dl-date-time-picker>
+          <span class="invalid-feedback">
+            {{displayMessage.MDateTime}}
+          </span>
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+            [title]="meetingForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+            [disabled]="!meetingForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your create"
+            [routerLink]="['/meeting']">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #addAttendees let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Attendees</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addAttendeeForm">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="icon-user"></i></span>
+        </div>
+        <input type="text" name="attendee" class="form-control" placeholder="Add Attendees" formControlName="attendee">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary mr-3" (click)="addAttendee()">Save</button>
+  </div>
+</ng-template>

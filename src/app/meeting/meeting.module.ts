@@ -1,16 +1,19 @@
-import { NgModule } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
-import { MeetingListComponent } from './meeting-list/meeting-list.component';
-import { MeetingEditComponent } from './meeting-edit/meeting-edit.component';
-import { MeetingCreateComponent } from './meeting-create/meeting-create.component';
-import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { DlDateTimePickerModule  } from 'angular-bootstrap-datetimepicker';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
+import { ManagerRoutingModule } from './meeting-routing.module';
+import { MeetingCreateComponent } from './components/meeting-create/meeting-create.component';
+import { MeetingEditComponent } from './components/meeting-edit/meeting-edit.component';
+import { MeetingListComponent } from './components/meeting-list/meeting-list.component';
+import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { MeetingComponent } from './container/meeting/meeting.component';
 
 @NgModule({
-  declarations: [MeetingListComponent, MeetingEditComponent, MeetingCreateComponent],
+  declarations: [MeetingListComponent, MeetingEditComponent, MeetingCreateComponent, MeetingComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     DlDateTimePickerModule,
     SelectDropDownModule,
-    NgbModule
+    NgbModule,
+    ManagerRoutingModule
   ]
 })
 export class MeetingModule { }

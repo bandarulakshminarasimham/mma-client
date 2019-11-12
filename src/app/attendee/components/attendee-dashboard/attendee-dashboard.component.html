@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>No Of Meetings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attendee of attendees">
+            <td>{{attendee.AttendeeId}}</td>
+            <td>{{attendee.Name}}</td>
+            <td>{{attendee.AttendedMeetings}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

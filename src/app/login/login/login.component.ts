@@ -1,32 +1,40 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from '../login.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User } from 'src/model/User';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { CookieService } from 'ngx-cookie-service';
+import { LoginService } from '../service/login.service';
 
 // import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 
 @Component({
   selector: 'mma-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public username: string = '';
+  public username = '';
   public loginForm: FormGroup;
-  private token: string = '';
+  returnUrl: string;
 
   constructor(
     private loginService: LoginService,
     private router: Router,
     private cookieService: CookieService,
-    private formBuilder: FormBuilder
-  ) { }
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
+  ) {
+    // redirect to home if already logged in
+    if (this.loginService.loggedinUserValue) {
+      this.router.navigate(['/meeting']);
+    }
+  }
 
   ngOnInit() {
-    this.cookieService.delete('username');
     this.loadDefaultLoginForm();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   loadDefaultLoginForm() {
@@ -39,16 +47,23 @@ export class LoginComponent implements OnInit {
   login(): void {
     try {
       const user = {
-        username: this.loginForm.value.username,
+        userName: this.loginForm.value.username,
         password: this.loginForm.value.password
       };
-      let isLoggedin = this.loginService.login(user);
-      if (isLoggedin) {
-        this.cookieService.set('username', this.loginForm['username']);
-        this.router.navigate(['/meetings']);
-      } else {
-        this.router.navigate(['/login']);
-      }
+      this.loginService.login(user).subscribe(
+        data => {
+          if (data.Result) {
+              this.router.navigate(['/meeting']);
+            } else {
+              this.router.navigate(['/login']);
+            }
+        },
+        error => {
+          console.log(error);
+          this.router.navigate(['/login']);
+        }
+      );
+
     } catch (error) {
       console.log(error);
       this.router.navigate(['/login']);
